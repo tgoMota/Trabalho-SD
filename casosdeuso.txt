@@ -1,0 +1,18 @@
+#adm
+inserirCliente(CID, "dados do cliente") #adm #feito
+modificarCliente(CID, "novos dados do cliente") #adm #feito
+apagarCliente(CID) #adm #feito
+recuperarCliente(CID) #adm
+
+#Adm
+inserirProduto(PID, "dados do produto") #feito
+modificarProduto(PID, "novos dados do produto") #feito
+recuperarProduto(PID)
+apagarProduto(PID) #feito
+
+#Cliente
+criarPedido(CID) #feito
+modificarPedido(CID, OID, "produto e quantidade") #feito
+listarPedido(CID, OID) #feito
+listarPedidos(CID) #feito
+apagarPedido(CID, OID) #feito

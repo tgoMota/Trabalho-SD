@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package unary;
+
+
+service Unary{
+ rpc GetServerResponseCreateUser(CreateUser) returns (Ok) {}
+ rpc GetServerResponseLoginUser(Login) returns (Ok) {}
+ rpc GetServerResponseUpdateUser(UpdateUser) returns (Ok) {}
+ rpc GetServerResponseRecoverUser(UserCID) returns (User) {}
+ rpc GetServerResponseRemoveUser(UserCID) returns (Ok) {}
+ rpc GetServerResponseGetUser(UserCID) returns (GetUser) {}
+
+ rpc GetServerResponseProduct(ProductPID) returns (Product) {}
+ rpc GetServerResponseCreateProduct(CreateProduct) returns (Ok) {}
+ rpc GetServerResponseUpdateProduct(UpdateProduct) returns (Ok) {}
+ rpc GetServerResponseListProducts(UserCID) returns (ArrayProducts) {}
+ rpc GetServerResponseRecoverProduct(ProductPID) returns (Product) {}
+ rpc GetServerResponseRemoveProduct(RemoveProduct) returns (Ok) {}
+
+ rpc GetServerResponseCreateOrder(CreateOrder) returns (Ok) {} 
+ rpc GetServerResponseUpdateOrder(UpdateOrder) returns (Ok) {}
+ rpc GetServerResponseListOrder(ListOrder) returns (Order) {}
+ rpc GetServerResponseListOrderes(UserCID) returns (ResultListOrderes) {}
+ rpc GetServerResponseCancelOrder(CancelOrder) returns (Ok) {}
+}
+
+
+message Login{
+  UserCID cid = 1;
+  string password = 2;
+}
+message CreateUser{
+  UserCID cid = 1;
+  User user = 2;
+}
+
+message GetUser{
+  UserCID cid = 1;
+  User user = 2;
+}
+
+message RecoverUserMQTCID{
+  UserCID cid = 1;
+  User user = 2;
+}
+
+message UpdateUser{
+  UserCID cid = 1;
+  User user = 2;
+}
+
+message CreateProduct{
+  ProductPID pid = 1;
+  Product product = 2;
+}
+message UpdateProduct{
+  ProductPID pid = 1;
+  Product product = 2;
+}
+
+message RemoveProduct{
+  ProductPID pid = 1;
+}
+
+message UpdateOrder{
+  UserCID cid = 1;
+  OrderOID oid = 2;
+  ProductPID pid = 3;
+  int32 quantity = 4;
+}
+
+message ListOrder{
+  UserCID cid = 1;
+  OrderOID oid = 2;
+}
+
+message CancelOrder{
+  UserCID cid = 1;
+  OrderOID oid = 2;
+}
+
+message User{
+  string name = 1;
+  string email = 2;
+  string cpf = 3;
+  string password = 4;
+  string cellphone = 5;
+}
+
+message UserCID{
+  string cid = 1;
+}
+
+message Ok{
+  int32 flag = 1;
+}
+
+message ProductPID{
+  string pid = 1;
+}
+
+message Product{
+  ProductPID pid = 1;
+  string name = 2;
+  float value = 3;
+  int32 stock = 4;
+}
+
+message OrderOID{
+  string oid = 1;
+}
+
+message Order{
+  OrderOID oid = 1;
+  UserCID cid = 2;
+  repeated Product products = 3;
+}
+
+message OrderProduct{
+  ProductPID pid = 1;
+  int32 quantity = 2;
+}
+
+message CreateOrder{
+  UserCID cid = 1;
+  repeated OrderProduct orderProduct = 2;
+}
+
+message ArrayOrderes{
+  OrderOID oid = 1;
+  UserCID cid = 2;
+  repeated OrderProduct products = 3;
+}
+
+message ArrayProducts{
+  repeated Product products = 1;
+}
+
+message ResultListOrderes{
+  repeated ArrayOrderes arrayOrderes = 1;
+}
+
+message UpdateCacheUser{
+  int32 type = 1;
+  UpdateUser updateUser = 2;
+}
+
+message RemoveCacheUser{
+  int32 type = 1;
+  UserCID cid = 2;
+}
+
+message UpdateCacheProduct{
+  int32 type = 1;
+  UpdateProduct updateProduct = 2;
+}
+
+message RemoveCacheProduct{
+  int32 type = 1;
+  RemoveProduct removeProduct = 2;
+}
